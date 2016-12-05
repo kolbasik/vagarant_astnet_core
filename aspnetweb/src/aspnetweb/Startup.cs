@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -33,6 +34,13 @@ namespace aspnetweb
 
             // Add framework services.
             services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
+            services.AddApiVersioning(
+                o =>
+                {
+                    o.ApiVersionReader = new QueryStringOrHeaderApiVersionReader("api-version");
+                    o.AssumeDefaultVersionWhenUnspecified = true;
+                    o.DefaultApiVersion = new ApiVersion(2, 0);
+                });
             services.AddMvc(options =>
                 {
                     options.CacheProfiles.Add("Default", new CacheProfile { Duration = 3600 });

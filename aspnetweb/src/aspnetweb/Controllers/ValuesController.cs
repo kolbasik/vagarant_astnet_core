@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 namespace aspnetweb.Controllers
 {
+    [ReportApiVersions]
+    [ApiVersion("2.0")]
+    [ApiVersion("1.0", Deprecated = true)]
     [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public sealed class ValuesController : Controller
     {
         private readonly List<string> source;
