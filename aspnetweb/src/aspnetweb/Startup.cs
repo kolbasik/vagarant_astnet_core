@@ -28,6 +28,8 @@ namespace aspnetweb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IConfigurationRoot>(Configuration);
+
             // Required to use the Options<T> pattern
             services.AddOptions();
             services.Configure<ValuesController.Options>(Configuration.GetSection("aspnetweb"));
